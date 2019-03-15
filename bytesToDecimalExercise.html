@@ -50,7 +50,7 @@
             let random = 0;
             
             function buildQuestion(){
-                random = Math.floor(Math.random() * 256); // a random number up to 255
+                random = Math.floor(Math.random() * 255) + 1; // a random number between 1 and 255
                 document.querySelector("#question").innerHTML = "<h3>Write the number "+random+" in bytes.</h3>";
                 document.querySelector("#result").innerHTML = "";
             }
