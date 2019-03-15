@@ -13,7 +13,7 @@
         <script>
             function buildInputs(){
                 let count=1;
-                while(count<=7){
+                while(count<=8){
                     let input = Object.assign(document.createElement("input"),{
                         className:"bit",
                         max: 1,
@@ -50,7 +50,7 @@
             let random = 0;
             
             function buildQuestion(){
-                random = Math.floor(Math.random() * 129);
+                random = Math.floor(Math.random() * 256); // a random number up to 255
                 document.querySelector("#question").innerHTML = "<h3>Write the number "+random+" in bytes.</h3>";
                 document.querySelector("#result").innerHTML = "";
             }
