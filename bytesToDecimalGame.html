@@ -1,6 +1,7 @@
 <html>
+    <title>Bytes to Decimal Game</title>
     <body>
-        <h1>Bytes to Decimal Exercise</h1>
+        <h1>Bytes to Decimal Game</h1>
         <div id="question" style="float:left">
         </div>
         <div id="countdown" style="float:right"></div><br/>
@@ -17,6 +18,7 @@
         </div>
         <button id="submit" onclick="byteToDecimal();">Submit</button>
         <button id="reset" onclick="resetAll();">Reset</button>
+        <footer style="margin-top:120px;">Developed by Marcel Tanuri and Richard Brendon</footer>
         <script>
             function buildInputs(){
                 let count=1;
@@ -110,7 +112,7 @@
                     timeleft -= 1;
                     if(timeleft <= 0){
                         clearInterval(downloadTimer);
-                        alert("Wins: " + wins);
+                        alert("Wins: " + wins + " / Losses: " + losses );
                         resetAll();
                         location.reload();
                     }
