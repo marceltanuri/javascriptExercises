@@ -1,0 +1,161 @@
+<html>
+    <body>
+        <h1>Bytes to Decimal Exercise</h1>
+        <div id="question" style="float:left">
+        </div>
+        <div id="countdown" style="float:right"></div><br/>
+        <div id="score" style="float:right">
+                <div id="attemptions">Attempt: 1</div>
+                <div id="wins">Wins: 0</div>
+                <div id="losses">Losses: 0</div>
+        </div>
+        <br/><br/><br/><br/>
+        <div id="byte">
+        </div>
+        <br/><br/><br/><br/><br/>
+        <div id="result">
+        </div>
+        <button id="submit" onclick="byteToDecimal();">Submit</button>
+        <button id="reset" onclick="resetAll();">Reset</button>
+        <script>
+            function buildInputs(){
+                let count=1;
+                while(count<=8){
+                    let input = Object.assign(document.createElement("div"),{
+                        className:"bit noselect"
+                    });
+                    input.innerHTML="0";
+                    input.setAttribute("onClick","if(this.innerHTML==0){this.innerHTML=1}else{this.innerHTML=0}");
+                    document.querySelector("#byte").append(input);
+                    count++;
+                }
+            }
+
+
+            function byteToDecimal(){
+                attemptions = attemptions + 1;
+                document.querySelector("#attemptions").innerHTML= "Attempt: " + attemptions;
+
+                if(attemptions == 6){
+                    losses = losses + 1;
+                    resetGame();
+                    document.querySelector("#losses").innerHTML= "Losses: " + losses;
+                    return;
+                }
+
+                let result = 0
+                let bits = document.querySelectorAll(".bit");
+                for(let i = 0 ; i < bits.length; i++ ){
+                    if(bits[i].innerHTML==1){
+                        result = result + Math.pow(2, (bits.length-1)-i);
+                    }
+                }
+
+                let msg = "";
+
+                if(result==random){
+                    msg = "Correct, You got it!";
+                    wins = wins + 1;
+                    resetGame();
+                    document.querySelector("#wins").innerHTML= "Wins: " + wins;
+                    return;
+                }
+                else{
+                    msg = "Incorrect, Try again!";
+                }
+
+                document.querySelector("#result").innerHTML = msg + "<br/>Your byte value is: " + result + "</br></br>";
+            }
+
+            //global vars
+            let random = 0;
+            let attemptions = 1;
+            let wins = 0;
+            let losses = 0;
+
+            function resetGame(){
+                attemptions = 1;
+                document.querySelector("#attemptions").innerHTML= "Attempt: " + attemptions;
+                buildQuestion();
+                resetBits();
+            }
+
+
+            function resetAll(){
+                wins=0;
+                losses=0;
+                document.querySelector("#wins").innerHTML= "Wins: " + wins;
+                document.querySelector("#losses").innerHTML= "Losses: " + losses;
+                location.reload();
+                resetGame();
+            }
+
+            function buildQuestion(){
+                random = Math.floor(Math.random() * 255) + 1; // a random number between 1 and 255
+                document.querySelector("#question").innerHTML = "<h3>Write the number "+random+" in bytes.</h3>";
+                document.querySelector("#result").innerHTML = "";
+            }
+
+            function resetBits(){
+                let bits = document.querySelectorAll(".bit");
+                bits.forEach((bit) => {
+                    bit.innerHTML = 0;
+                });
+            }
+
+            function countTime(){
+                var timeleft = 60;
+                var downloadTimer = setInterval(function(){
+                    document.getElementById("countdown").innerHTML = timeleft + " seconds remaining";
+                    timeleft -= 1;
+                    if(timeleft <= 0){
+                        clearInterval(downloadTimer);
+                        alert("Wins: " + wins);
+                        resetAll();
+                        location.reload();
+                    }
+                }, 1000)
+            }
+
+            function start(){
+                buildInputs();
+                buildQuestion();
+                countTime();
+            }
+
+            start();
+
+        </script>
+
+
+        <style>
+            .bit{
+                border: 1px solid gray; 
+                width: 25px; 
+                height: 25px; 
+                float: left; 
+                padding: 15px;
+                cursor: pointer;
+            }
+
+            .noselect {
+                -webkit-touch-callout: none; /* iOS Safari */
+                -webkit-user-select: none; /* Safari */
+                -khtml-user-select: none; /* Konqueror HTML */
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* Internet Explorer/Edge */
+                user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+            }
+
+            button{
+                font-size:20px;
+            }
+
+            #submit{
+                margin-right:10px;
+                background-color:rgb(132, 208, 132);
+            }
+        </style>
+    </body>
+</html>
